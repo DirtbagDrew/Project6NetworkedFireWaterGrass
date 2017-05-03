@@ -40,7 +40,7 @@ public class Computer
         	patternMap.put(patt, 1);
         }
         
-        System.out.println(patternMap);
+       // System.out.println(patternMap);
     }
     /**
      * decides what ove to use against the user

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.Scanner;
 
 import javax.imageio.*;
 import javax.swing.JButton;
@@ -21,6 +22,7 @@ public class Panel extends JPanel implements ActionListener
 	JButton grassButton;
 	JButton quitButton;
 	PrintStream out;
+	BufferedReader in;
 	boolean cont;
 	
 	public Panel()
@@ -28,23 +30,38 @@ public class Panel extends JPanel implements ActionListener
 		
 		try
 		{	
-			repaint();
+			Scanner input = new Scanner(System.in);
 			Socket s = new Socket("localhost", 1025);
 			
-			//send message to server
+			in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 			out = new PrintStream(s.getOutputStream());
-			System.out.println("Sending Data...");
-			cont = true;
 			
-			while(cont)
+			boolean done = false;
+			while(!done)
 			{
+				System.out.println("1. Fire");
+				System.out.println("2. Water");
+				System.out.println("3. Grass");
+				System.out.println("4. Quit");
 				
+				int option = input.nextInt();
+				switch(option)
+				{
+				case 1:
+					out.println(1);
+					break;
+				case 2:
+					out.println(2);
+					break;
+				case 3:
+					out.println(3);
+					break;
+				case 4:
+					out.println(4);
+					done=true;
+					break;
+				}
 			}
-			
-			//get message from server
-			BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
-			System.out.print("recieving result: ");
-			System.out.println("Sum = "+in.readLine());
 			
 			//close connection
 			s.close();
