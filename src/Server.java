@@ -28,6 +28,9 @@ public class Server
 			{
 				
 				int prediction=cpu.makePrediction(userPattern);
+				
+				userMove = Integer.parseInt(in.readLine());
+				
 				switch(prediction)
 				{
 				case 1:
@@ -43,7 +46,6 @@ public class Server
 					break;
 				}
 				
-				userMove = Integer.parseInt(in.readLine());
 				System.out.println(userMove);
 				if(userMove==4)
 				{
