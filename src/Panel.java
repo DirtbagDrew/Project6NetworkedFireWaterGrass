@@ -27,7 +27,7 @@ public class Panel extends JPanel implements ActionListener
 	
 	public Panel()
 	{					
-		
+		repaint();
 		try
 		{	
 			Scanner input = new Scanner(System.in);
@@ -70,11 +70,6 @@ public class Panel extends JPanel implements ActionListener
 		{
 			e.printStackTrace();
 		}
-		
-		
-		
-		
-
 	}
 	@Override
 	public void paintComponent(Graphics g)
@@ -120,7 +115,7 @@ public class Panel extends JPanel implements ActionListener
 		}
 		if(e.getActionCommand()=="quit")
 		{
-			cont=false;
+			System.out.println("thanks for playing");
 		}
 	}
 	
