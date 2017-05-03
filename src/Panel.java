@@ -19,19 +19,27 @@ public class Panel extends JPanel implements ActionListener
 	JButton fireButton;
 	JButton waterButton;
 	JButton grassButton;
+	JButton quitButton;
 	PrintStream out;
-	
+	boolean cont;
 	
 	public Panel()
 	{					
+		
 		try
-		{			
+		{	
+			repaint();
 			Socket s = new Socket("localhost", 1025);
 			
 			//send message to server
 			out = new PrintStream(s.getOutputStream());
 			System.out.println("Sending Data...");
-			out.println("grass");
+			cont = true;
+			
+			while(cont)
+			{
+				
+			}
 			
 			//get message from server
 			BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
@@ -46,7 +54,9 @@ public class Panel extends JPanel implements ActionListener
 			e.printStackTrace();
 		}
 		
-		setBackground(Color.BLUE);
+		
+		
+		
 
 	}
 	@Override
@@ -54,21 +64,46 @@ public class Panel extends JPanel implements ActionListener
 	{
 		super.paintComponent(g);
 		
+		//sets the background color
+		setBackground(Color.BLUE);
+		//sets the fire button
+		fireButton = new JButton("fire");
+		fireButton.addActionListener(this);
+		add(fireButton, BorderLayout.CENTER);
+		
+		//sets the water button
+		waterButton = new JButton("water");
+		waterButton.addActionListener(this);
+		add(waterButton, BorderLayout.CENTER);
+		
+		//sets the grass button
+		grassButton = new JButton("grass");
+		grassButton.addActionListener(this);
+		add(grassButton, BorderLayout.CENTER);
+		
+		//sets the quit button
+		quitButton = new JButton("quit");
+		quitButton.addActionListener(this);
+		
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
 		if(e.getActionCommand()=="fire")
 		{
-			//out.print("fire");
+			out.print("fire");
 		}
 		if(e.getActionCommand()=="water")
 		{
-			//out.print("water");
+			out.print("water");
 		}
 		if(e.getActionCommand()=="grass")
 		{
-			//out.print("grass");
+			out.print("grass");
+		}
+		if(e.getActionCommand()=="quit")
+		{
+			cont=false;
 		}
 	}
 	

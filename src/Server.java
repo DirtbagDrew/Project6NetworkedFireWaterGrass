@@ -2,6 +2,7 @@ import java.net.*;
 import java.io.*;
 public class Server 
 {
+	
 public static void main(String [] args)
 {
 	try
@@ -11,27 +12,21 @@ public static void main(String [] args)
 		Socket s = server.accept();
 		System.out.println("Connected");
 		
-		//get input from client
+		//initialize out and in stream
 		BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+		PrintStream out = new PrintStream(s.getOutputStream());
 		
-		//something wrong with this
-		String input = in.readLine();
-		
-		System.out.println("Recieving Data: "+ input);
-		
-		
-		//process input
-		//String [] values=input.split(",");
-		//int sum = 0;
-		//for(int i = 0; i <values.length; i++)
-		//{
-		//	sum+=Integer.parseInt(values[i]);
-		//}
+		Computer cpu = new Computer();
+		boolean cont = true;
+		 for (String line = in.readLine(); line != null; line = in.readLine()) 
+		 {
+		     System.out.println(line);
+		 }
 	
 		//send result back to client
-		PrintStream out = new PrintStream(s.getOutputStream());
+		
 		System.out.println("Sending Result...");
-		out.println(input);
+		//out.println(input);
 		
 		//close connection
 		server.close();
