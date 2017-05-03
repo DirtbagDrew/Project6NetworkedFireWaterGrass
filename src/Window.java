@@ -19,6 +19,7 @@ public class Window extends JFrame implements ActionListener
 	PrintStream out;
 	BufferedReader in;
 	Boolean cont;
+	JLabel move;
 	/**
 	 * main program for the client, just initializes the window object
 	 * @param args
@@ -36,31 +37,71 @@ public class Window extends JFrame implements ActionListener
 		setBounds(100,100,700,700);//x,y,w,h of window
 		setTitle("Drawing Demo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLayout(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
 		//Panel p = new Panel();
 		//setContentPane(p);
 		
 		//sets the background color
 				setBackground(Color.BLUE);
+				move=new JLabel("your move");
+				gbc.fill=GridBagConstraints.HORIZONTAL;
+				gbc.gridx=0;
+				gbc.gridy=0;
+				gbc.weightx=0;
+				add(move,gbc);
+				
+				JLabel decision=new JLabel("decision");
+				gbc.fill=GridBagConstraints.HORIZONTAL;
+				gbc.gridx=1;
+				gbc.gridy=0;
+				gbc.weightx=0;
+				add(decision,gbc);
+				
+				JLabel oppDec=new JLabel("opponent");
+				gbc.fill=GridBagConstraints.HORIZONTAL;
+				gbc.gridx=2;
+				gbc.gridy=0;
+				gbc.weightx=0;
+				add(oppDec,gbc);
+				
 				//sets the fire button
 				JButton fireButton = new JButton("fire");
 				fireButton.addActionListener(this);
-				add(fireButton, BorderLayout.WEST);
+				gbc.fill=GridBagConstraints.HORIZONTAL;
+				gbc.gridx=0;
+				gbc.gridy=1;
+				gbc.weightx=0;
+				gbc.weighty=0;
+				add(fireButton,gbc);
 				
 				//sets the water button
 				JButton waterButton = new JButton("water");
 				waterButton.addActionListener(this);
-				add(waterButton, BorderLayout.CENTER);
+				gbc.fill=GridBagConstraints.HORIZONTAL;
+				gbc.gridx=1;
+				gbc.gridy=1;
+				gbc.weightx=0;
+				add(waterButton,gbc);
 				
 				//sets the grass button
 				JButton grassButton = new JButton("grass");
 				grassButton.addActionListener(this);
-				add(grassButton, BorderLayout.EAST);
+				gbc.fill=GridBagConstraints.HORIZONTAL;
+				gbc.gridx=2;
+				gbc.gridy=1;
+				gbc.weightx=0;
+				add(grassButton,gbc);
 				
 				//sets the quit button
 				JButton quitButton = new JButton("quit");
 				quitButton.getPreferredSize();
 				quitButton.addActionListener(this);
-				add(quitButton,BorderLayout.SOUTH);
+				gbc.fill=GridBagConstraints.HORIZONTAL;
+				gbc.gridx=3;
+				gbc.gridy=1;
+				gbc.weightx=0;
+				add(quitButton,gbc);
 		setVisible(true);
 		try
 		{	
@@ -113,6 +154,7 @@ public class Window extends JFrame implements ActionListener
 		if(e.getActionCommand()=="fire")
 		{
 			out.println(1);
+			move.setText("fire");
 		}
 		if(e.getActionCommand()=="water")
 		{
