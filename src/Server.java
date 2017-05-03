@@ -55,6 +55,7 @@ public class Server
 				switch(userMove)
 				{
 				case 1:
+					System.out.println("you picked fire");
 					if(prediction==1)
 					{
 						System.out.println("Its a tie");
@@ -74,6 +75,7 @@ public class Server
 					cpu.storePattern(userPattern);
 					break;
 				case 2:
+					System.out.println("you picked water");
 					if(prediction==1)
 					{
 						System.out.println("you won");
@@ -93,6 +95,7 @@ public class Server
 					cpu.storePattern(userPattern);
 					break;
 				case 3:
+					System.out.println("you picked grass");
 					if(prediction==1)
 					{
 						System.out.println("you lost");

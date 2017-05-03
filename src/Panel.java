@@ -44,7 +44,7 @@ public class Panel extends JPanel implements ActionListener
 				System.out.println("3. Grass");
 				System.out.println("4. Quit");
 				
-				int option = input.nextInt();
+				int option = CheckInput.checkIntRange(1, 4);
 				switch(option)
 				{
 				case 1:
