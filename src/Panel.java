@@ -62,7 +62,6 @@ public class Panel extends JPanel implements ActionListener
 					break;
 				}
 			}
-			
 			//close connection
 			s.close();
 		}

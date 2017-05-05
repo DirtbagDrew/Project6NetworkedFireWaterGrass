@@ -30,27 +30,31 @@ public class Computer
     {
         int patternIter=0;
         Pattern patt=new Pattern(p);
+   
+        //if the pattern is already stored, add to the amount of iterations it has
         if(patternMap.containsKey(p))
         {
         	patternIter=patternMap.get(p)+1;
         	patternMap.put(patt, patternIter);
         }
+        //else add with one iteration
         else
         {
         	patternMap.put(patt, 1);
         }
         
-       // System.out.println(patternMap);
     }
     /**
-     * decides what ove to use against the user
+     * decides what over to use against the user
      * @param user the pattern the user has last used
-     * @return
+     * @return computers move
      */
     public int makePrediction(String user) 
     {
-    	//sets the count to 0
+    	//sets to 0
         int f = 0, w = 0, g = 0,compPred=0;
+        
+        //make user length 1 to avoid null pointer
         if (user.length()==0) 
         {
             user=user+"";
@@ -60,6 +64,7 @@ public class Computer
         String fire=user.substring(1,user.length())+"F";
         String grass=user.substring(1,user.length())+"G";
         
+        //counts the amount of time each move is picked next
         if(patternMap.containsKey(new Pattern(water)))
         {
         	w=patternMap.get(new Pattern(water));
@@ -77,6 +82,7 @@ public class Computer
         	compPred=1+(int)(Math.random()*3);
         }
         
+        //determines what the computer should choose
         if(f>w && f>g)
         {
         	compPred=2;
