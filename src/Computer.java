@@ -7,7 +7,7 @@ import java.util.*;
  *
  */
 
-public class Computer 
+public class Computer implements Serializable
 {
     /**
      * hashmap to store the Pattern objects
