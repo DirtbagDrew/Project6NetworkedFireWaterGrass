@@ -30,11 +30,11 @@ public class Computer implements Serializable
     {
         int patternIter=0;
         Pattern patt=new Pattern(p);
-   
+        
         //if the pattern is already stored, add to the amount of iterations it has
-        if(patternMap.containsKey(p))
+        if(patternMap.containsKey(patt))
         {
-        	patternIter=patternMap.get(p)+1;
+        	patternIter=patternMap.get(patt)+1;
         	patternMap.put(patt, patternIter);
         }
         //else add with one iteration
@@ -42,6 +42,7 @@ public class Computer implements Serializable
         {
         	patternMap.put(patt, 1);
         }
+        
         
     }
     /**
@@ -52,8 +53,8 @@ public class Computer implements Serializable
     public int makePrediction(String user) 
     {
     	//sets to 0
-        int f = 0, w = 0, g = 0,compPred=0;
-        
+        int f = 0, w = 0, g = 0;
+        int compPred=1+(int)(Math.random()*3);;
         //make user length 1 to avoid null pointer
         if (user.length()==0) 
         {
@@ -69,17 +70,13 @@ public class Computer implements Serializable
         {
         	w=patternMap.get(new Pattern(water));
         }
-        else if(patternMap.containsKey(new Pattern(fire)))
+        if(patternMap.containsKey(new Pattern(fire)))
         {
         	f=patternMap.get(new Pattern(fire));
         }
-        else if(patternMap.containsKey(new Pattern(grass)))
+        if(patternMap.containsKey(new Pattern(grass)))
         {
         	g=patternMap.get(new Pattern(grass));
-        }
-        else
-        {
-        	compPred=1+(int)(Math.random()*3);
         }
         
         //determines what the computer should choose
@@ -87,16 +84,18 @@ public class Computer implements Serializable
         {
         	compPred=2;
         }
-        else if(w>f && w>g)
+        if(w>f && w>g)
         {
         	compPred=3;
         }
-        else if(g>f && g>w)
+        if(g>f && g>w)
         {
         	compPred=1;
-        }
+        } 
+        
         
         return compPred;
+        
         
     }    
 }

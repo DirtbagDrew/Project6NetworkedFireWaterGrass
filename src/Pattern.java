@@ -37,7 +37,7 @@ public class Pattern implements Serializable
     @Override
     public int hashCode() 
     {
-        final int prime=151;
+        final int prime=31;
         int result=1;
         result=prime*result+pattern.hashCode();
         return result;
@@ -55,5 +55,9 @@ public class Pattern implements Serializable
         	return pattern.equals(p.pattern);
         }
         return false;
+    }
+    public String toString()
+    {
+    	return pattern;
     }
 }

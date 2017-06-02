@@ -25,92 +25,93 @@ public class Window extends JFrame implements ActionListener
 	/**
 	 * prints out to the server
 	 */
-	PrintStream out;
+	private PrintStream out;
 	
 	/**
 	 * reads text information from the serve
 	 */
-	BufferedReader in;
+	private BufferedReader in;
 	
 	/**
 	 * ends while loop to stop the process
 	 */
-	Boolean cont;
-	
-	/**
-	 * displays the move that you choose
-	 */
-	JLabel move;
-	
-	/**
-	 * displays the outcome of the round
-	 */
-	//JLabel decision;
-	
-	/**
-	 * displays the move the computer decided on
-	 */
-	JLabel oppDec;
-	
-	/**
-	 * displays the outcome of the round
-	 */
-	JLabel message;
-	
-	/**
-	 * displays the score
-	 */
-	JLabel score;
+	private Boolean cont;
 	
 	/**
 	 * takes in what the computer picked
 	 */
-	String input1=null;
-	
-	/**
-	 * takes in what the outcome of the round was
-	 */
-	String input2=null;
-	
-	/**
-	 * takes in the score
-	 */
-	String input3=null;
+	private String input1=null;
 	
 	/**
 	 * socket connection to the server
 	 */
-	Socket s;
+	private Socket s;
+	
+	/**
+	 * displays the move that you choose
+	 */
+	private JLabel move;
+	
+	
+	/**
+	 * displays the move the computer decided on
+	 */
+	private JLabel oppDec;
+	
+	/**
+	 * displays the outcome of the round
+	 */
+	private JLabel message;
+	
+	/**
+	 * displays the score
+	 */
+	private JLabel score;
 	
 	/**
 	 * fire symbol button
 	 */
-	ImageIcon fire;
+	private ImageIcon fire;
 	
 	/**
 	 * water symbol button
 	 */
-	ImageIcon water;
+	private ImageIcon water;
 	
 	/**
 	 * grass symbol button
 	 */
-	ImageIcon grass;
+	private ImageIcon grass;
 	
 	/**
 	 * fire symbol button
 	 */
-	JButton fireButton;
+	private JButton fireButton;
 	
 	/**
 	 * water symbol button
 	 */
-	JButton waterButton;
+	private JButton waterButton;
 	
 	/**
 	 * grass symbol button
 	 */
-	JButton grassButton;
+	private JButton grassButton;
+	
+	/**
+	 * initialize the number of ties to 0
+	 */
+	private int tieCount=0;
+	
+	/**
+	 * initialize the number of losses to 0
+	 */
+	private int lossCount=0;
+	
+	/**
+	 * initialize the number of wins to 0
+	 */
+	private int winCount=0;
 	
 	/**
 	 * main program for the client, just initializes the window object
@@ -130,8 +131,6 @@ public class Window extends JFrame implements ActionListener
 		setTitle("Pick Your Move: Fire, Grass, Water");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new FlowLayout());
-		//Panel p = new Panel();
-		//setContentPane(p);
 		
 		//sets the background color
 		setBackground(Color.BLUE);
@@ -225,19 +224,45 @@ public class Window extends JFrame implements ActionListener
 				//send option 1 to server
 				out.println(1);
 				
-				//read the response from the server
-				input1=in.readLine();
-				input2=in.readLine();
-				input3=in.readLine();
-				
 				//sets the response to the display
-				move.setText("You picked fire");
-				oppDec.setText(input1);
-				message.setText(input2);
-				score.setText(input3);
+				move.setText("You picked fire");				
+				
+				input1=in.readLine();
+				int CPUChoice=Integer.parseInt(input1);
+				
+				switch(CPUChoice)
+				{
+				case 1://computer chose fire
+					oppDec.setText("Computer chose fire");
+					message.setText("Its a tie");
+					
+					//updates score with tie
+					tieCount++;
+					score.setText("wins: "+ winCount +" ties: "+tieCount+" losses: "+lossCount);
+					break;
+				case 2://computer chose water
+					oppDec.setText("Computer chose water");
+					message.setText("You Lost");
+					
+					//updates score with loss
+					lossCount++;
+					score.setText("wins: "+ winCount +" ties: "+tieCount+" losses: "+lossCount);
+					break;
+				case 3://computer chose grass
+					oppDec.setText("Computer chose grass");
+					message.setText("You Won");
+					
+					//updates score with win
+					winCount++;
+					score.setText("wins: "+ winCount +" ties: "+tieCount+" losses: "+lossCount);
+					break;
+				default:
+					break;
+				}
+				
 			}
 			
-			//if the fire button is pressed
+			//if the water button is pressed
 			if(e.getSource()==waterButton)
 			{
 				play("blastoise.wav");
@@ -245,16 +270,42 @@ public class Window extends JFrame implements ActionListener
 				//send option 2 to server
 				out.println(2);
 				
-				//reads the response from the server
-				input1=in.readLine();
-				input2=in.readLine();
-				input3=in.readLine();
-				
 				//sets response to display
 				move.setText("You picked water");
-				oppDec.setText(input1);
-				message.setText(input2);
-				score.setText(input3);
+				
+				input1=in.readLine();
+				int CPUChoice=Integer.parseInt(input1);
+				
+				switch(CPUChoice)
+				{
+				case 1://computer chose fire
+					oppDec.setText("Computer chose fire");
+					message.setText("You Won");
+					
+					//updates score with win
+					winCount++;
+					score.setText("wins: "+ winCount +" ties: "+tieCount+" losses: "+lossCount);
+					break;
+				case 2://computer chose water
+					oppDec.setText("Computer chose water");
+					message.setText("Its a tie");
+					
+					//updates score with tie
+					tieCount++;
+					score.setText("wins: "+ winCount +" ties: "+tieCount+" losses: "+lossCount);
+					break;
+				case 3://computer chose grass
+					oppDec.setText("Computer chose grass");
+					message.setText("You Lost");
+					
+					//update score with loss
+					lossCount++;
+					score.setText("wins: "+ winCount +" ties: "+tieCount+" losses: "+lossCount);
+					break;
+				default:
+					break;
+				}
+				
 			}
 			
 			//if the grass button is pressed
@@ -265,16 +316,42 @@ public class Window extends JFrame implements ActionListener
 				//send option 3 to the server
 				out.println(3);
 				
-				//reads the response from the server
-				input1=in.readLine();
-				input2=in.readLine();
-				input3=in.readLine();
-				
 				//sets server response to display
-				move.setText("You picked grass");
-				oppDec.setText(input1);
-				message.setText(input2);
-				score.setText(input3);					
+				move.setText("You picked grass");	
+				
+				input1=in.readLine();
+				int CPUChoice=Integer.parseInt(input1);
+				
+				switch(CPUChoice)
+				{
+				case 1://computer chose fire
+					oppDec.setText("Computer chose fire");		
+					message.setText("You Lost");
+					
+					//updates score with loss
+					lossCount++;
+					score.setText("wins: "+ winCount +" ties: "+tieCount+" losses: "+lossCount);
+					break;
+				case 2://computer chose water
+					oppDec.setText("Computer chose water");
+					message.setText("You Won");
+					
+					//update score with win
+					winCount++;
+					score.setText("wins: "+ winCount +" ties: "+tieCount+" losses: "+lossCount);
+					break;
+				case 3://computer chose grass
+					oppDec.setText("Computer chose grass");
+					message.setText("Its a tie");
+					
+					//update score with tie
+					tieCount++;
+					score.setText("wins: "+ winCount +" ties: "+tieCount+" losses: "+lossCount);
+					break;
+				default:
+					break;
+				}			
+				
 			}
 			
 			//if the quit button is pressed
@@ -285,6 +362,8 @@ public class Window extends JFrame implements ActionListener
 				s.close();
 				System.exit(0);
 			}
+			
+			
 				
 		}
 		catch(IOException f)
