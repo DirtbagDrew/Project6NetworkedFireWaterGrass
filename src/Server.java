@@ -25,6 +25,27 @@ public class Server
 			//initializes computer
 			Computer cpu= new Computer();
 			
+			// tries to read the stored computer file cpu.dat
+			File f = new File("cpu.dat");
+			if(f.exists())
+			{
+				try
+				{
+					ObjectInputStream in = new ObjectInputStream(new FileInputStream(new File("cpu.dat")));
+					cpu=(Computer) in.readObject();
+					in.close();
+				}
+				catch(IOException e)
+				{
+					System.out.println("error processing file");
+				}
+				catch(ClassNotFoundException e)
+				{
+					System.out.println("could not find class");
+				}
+			}
+			
+			
 			//initialize the score
 			int tieCount=0;
 			int lossCount=0;
@@ -170,9 +191,23 @@ public class Server
 
 			}
 			
+			//stores cpu object to file cpu.dat
+			try
+			{
+				ObjectOutputStream cpuOut=new ObjectOutputStream(new FileOutputStream(new File("cpu.dat")));
+				cpuOut.writeObject(cpu);
+				cpuOut.close();
+			}
+			catch(IOException e)
+			{
+				System.out.println("Error processing file");
+			}
+			
 			//close connection
 			server.close();
 			System.out.println("done");
+			
+			//ends program
 			System.exit(0);
 		}
 		catch(IOException e)
